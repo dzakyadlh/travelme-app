@@ -8,19 +8,21 @@ class CustomBigCard extends StatelessWidget {
     required this.cardLocation,
     required this.cardRating,
     required this.cardImageUrl,
+    required this.onTap,
   });
 
   final String cardTitle;
   final String cardLocation;
   final String cardRating;
   final String cardImageUrl;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           width: 180,
           padding: const EdgeInsets.all(16),

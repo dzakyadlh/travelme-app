@@ -36,3 +36,35 @@ class ExpandedFilledButton extends StatelessWidget {
     );
   }
 }
+
+class PrimaryFilledButton extends StatelessWidget {
+  const PrimaryFilledButton({
+    super.key,
+    required this.buttonText,
+    required this.onPressed,
+  });
+
+  final String buttonText;
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton(
+        onPressed: onPressed,
+        style: FilledButton.styleFrom(
+            backgroundColor: primaryColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 48,
+            )),
+        child: Text(
+          buttonText,
+          style: primaryTextStyle.copyWith(
+            fontWeight: semibold,
+            fontSize: 14,
+          ),
+        ));
+  }
+}

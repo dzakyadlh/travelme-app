@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/screens/detail.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_card.dart';
 
 class BigCardSlider extends StatelessWidget {
-  const BigCardSlider({super.key});
+  const BigCardSlider({
+    super.key,
+    required this.hotel,
+  });
+
+  final HotelModel hotel;
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +22,19 @@ class BigCardSlider extends StatelessWidget {
           itemCount: 6,
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, index) {
-            return const CustomBigCard(
-              cardTitle: 'Gardens at Bay',
-              cardLocation: 'Singapore',
-              cardRating: '4.9',
-              cardImageUrl: 'assets/images/gardensbay.png',
+            return CustomBigCard(
+              cardTitle: hotel.name,
+              cardLocation: hotel.location,
+              cardRating: hotel.rating,
+              cardImageUrl: hotel.gallery[0],
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(hotel: hotel),
+                  ),
+                );
+              },
             );
           }),
     );

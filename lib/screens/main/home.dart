@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travelme/models/hotel_model.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/card_list.dart';
 import 'package:travelme/widgets/card_slider.dart';
-import 'package:travelme/widgets/categories_bar.dart';
 import 'package:travelme/widgets/input_fields.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,6 +11,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchController = TextEditingController(text: '');
+
+    final hotel = HotelModel(
+      id: 1,
+      name: 'JW Marriott Hotel',
+      location: 'Surabaya, Indonesia',
+      price: 110.00,
+      description:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, exercitationem error. Reprehenderit iste facilis laborum possimus atque, eaque velit temporibus cum iure distinctio nisi. Nisi cupiditate non eligendi est earum nam ut dolor voluptatem perspiciatis assumenda a, officiis saepe at hic accusantium impedit commodi labore itaque! Eveniet enim accusamus perspiciatis!',
+      rating: '4.9',
+      gallery: [
+        'assets/images/jwmarriott.png',
+      ],
+    );
 
     Widget topBar() {
       return Padding(
@@ -69,7 +82,7 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    Widget trendingPlace() {
+    Widget popularPlaces() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -83,10 +96,10 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Trending Places',
+                  'Popular Places',
                   style: primaryTextStyle.copyWith(
                     fontWeight: semibold,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 ),
                 Text(
@@ -99,8 +112,31 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const BigCardSlider()
+          BigCardSlider(hotel: hotel),
         ],
+      );
+    }
+
+    Widget hotelsAround() {
+      return Container(
+        padding: EdgeInsets.only(
+          top: defaultMargin,
+          left: defaultMargin,
+          right: defaultMargin,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Popular Packages',
+              style: primaryTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 16,
+              ),
+            ),
+            const CardList(),
+          ],
+        ),
       );
     }
 
@@ -109,9 +145,8 @@ class HomeScreen extends StatelessWidget {
         children: [
           topBar(),
           header(),
-          CategoriesBar(),
-          trendingPlace(),
-          const CardList(),
+          popularPlaces(),
+          hotelsAround(),
         ],
       ),
     );
