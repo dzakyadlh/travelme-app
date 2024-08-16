@@ -57,7 +57,39 @@ class PrimaryFilledButton extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             padding: const EdgeInsets.symmetric(
               vertical: 12,
-              horizontal: 48,
+              horizontal: 60,
+            )),
+        child: Text(
+          buttonText,
+          style: primaryTextStyle.copyWith(
+            fontWeight: semibold,
+            fontSize: 14,
+          ),
+        ));
+  }
+}
+
+class PrimaryOutlinedButton extends StatelessWidget {
+  const PrimaryOutlinedButton({
+    super.key,
+    required this.buttonText,
+    required this.onPressed,
+  });
+
+  final String buttonText;
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+            foregroundColor: primaryTextColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 60,
             )),
         child: Text(
           buttonText,

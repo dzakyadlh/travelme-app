@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:travelme/models/hotel_model.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
+import 'package:travelme/widgets/custom_card.dart';
+import 'package:travelme/widgets/custom_date_picker.dart';
+import 'package:travelme/widgets/gallery.dart';
+import 'package:travelme/widgets/hotel_card.dart';
+import 'package:travelme/widgets/location_widget.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   const DetailScreen({
     super.key,
     required this.hotel,
   });
 
   final HotelModel hotel;
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool _showDetailBody = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +32,7 @@ class DetailScreen extends StatelessWidget {
           horizontal: defaultMargin,
           vertical: 16,
         ),
+        color: _showDetailBody ? backgroundPrimaryColor : Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,15 +42,22 @@ class DetailScreen extends StatelessWidget {
               },
               icon: Icon(
                 Icons.arrow_back_rounded,
-                color: backgroundPrimaryColor,
+                color: _showDetailBody ? primaryTextColor : secondaryTextColor,
                 size: 24,
+              ),
+            ),
+            Text(
+              _showDetailBody ? widget.hotel.name : '',
+              style: primaryTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 16,
               ),
             ),
             IconButton(
               onPressed: () {},
               icon: Icon(
                 Icons.favorite_border,
-                color: backgroundPrimaryColor,
+                color: _showDetailBody ? primaryTextColor : secondaryTextColor,
                 size: 24,
               ),
             )
@@ -48,12 +69,14 @@ class DetailScreen extends StatelessWidget {
     Widget CustomBottomBar() {
       return Container(
         padding: EdgeInsets.all(defaultMargin),
+        color: _showDetailBody ? backgroundPrimaryColor : Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '\$${hotel.price} /night',
-              style: secondaryTextStyle.copyWith(
+              '\$${widget.hotel.price} /night',
+              style: (_showDetailBody ? primaryTextStyle : secondaryTextStyle)
+                  .copyWith(
                 fontWeight: semibold,
                 fontSize: 16,
               ),
@@ -63,7 +86,18 @@ class DetailScreen extends StatelessWidget {
             ),
             PrimaryFilledButton(
               buttonText: 'Booking',
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.8,
+                      child: const CustomDatePicker(),
+                    );
+                  },
+                );
+              },
             )
           ],
         ),
@@ -92,7 +126,7 @@ class DetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              hotel.name,
+              widget.hotel.name,
               style: secondaryTextStyle.copyWith(
                 fontWeight: semibold,
                 fontSize: 24,
@@ -114,7 +148,7 @@ class DetailScreen extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  hotel.location,
+                  widget.hotel.location,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 12,
                   ),
@@ -125,7 +159,7 @@ class DetailScreen extends StatelessWidget {
               height: 16,
             ),
             Text(
-              hotel.description,
+              widget.hotel.description,
               style: secondaryTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -148,7 +182,7 @@ class DetailScreen extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      hotel.rating,
+                      widget.hotel.rating.toString(),
                       style: secondaryTextStyle.copyWith(
                         fontWeight: semibold,
                         fontSize: 14,
@@ -168,11 +202,136 @@ class DetailScreen extends StatelessWidget {
       );
     }
 
-    Widget detailBody() {
+    Widget detailAbout() {
       return Container(
-        padding: EdgeInsets.symmetric(vertical: 100, horizontal: defaultMargin),
-        child: const Column(
-          children: [],
+        padding: EdgeInsets.only(top: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'About Hotel',
+              style: primaryTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              widget.hotel.description,
+              style: primaryTextStyle.copyWith(
+                fontWeight: medium,
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.justify,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget detailGallery() {
+      return Container(
+        padding: EdgeInsets.only(top: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Gallery',
+              style: primaryTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Gallery(imageList: widget.hotel.gallery)
+          ],
+        ),
+      );
+    }
+
+    Widget detailLocation() {
+      return Container(
+        padding: EdgeInsets.only(top: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Location',
+              style: primaryTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const LocationWidget(address: ''),
+          ],
+        ),
+      );
+    }
+
+    Widget detailReviews() {
+      return Container(
+        padding: EdgeInsets.only(top: defaultMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Reviews',
+              style: primaryTextStyle.copyWith(
+                fontWeight: semibold,
+                fontSize: 14,
+              ),
+            ),
+            const CustomReviewCard(
+              cardName: 'Rey Schneider',
+              cardRating: 4.9,
+              cardReview:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora expedita repellat totam molestias beatae fugiat deserunt quibusdam cumque numquam! Nihil!',
+              cardDate: 'Today',
+              cardImageUrl: 'assets/images/rome.png',
+            ),
+            const CustomReviewCard(
+              cardName: 'Rey Schneider',
+              cardRating: 4.9,
+              cardReview:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora expedita repellat totam molestias beatae fugiat deserunt quibusdam cumque numquam! Nihil!',
+              cardDate: 'Today',
+              cardImageUrl: 'assets/images/rome.png',
+            ),
+            const CustomReviewCard(
+              cardName: 'Rey Schneider',
+              cardRating: 4.9,
+              cardReview:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora expedita repellat totam molestias beatae fugiat deserunt quibusdam cumque numquam! Nihil!',
+              cardDate: 'Today',
+              cardImageUrl: 'assets/images/rome.png',
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget detailBody() {
+      return SingleChildScrollView(
+        child: Container(
+          padding:
+              EdgeInsets.symmetric(vertical: 100, horizontal: defaultMargin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HotelCard(hotel: widget.hotel),
+              detailAbout(),
+              detailGallery(),
+              detailLocation(),
+              detailReviews(),
+            ],
+          ),
         ),
       );
     }
@@ -181,20 +340,41 @@ class DetailScreen extends StatelessWidget {
       backgroundColor: backgroundPrimaryColor,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-          child: Stack(
-        children: [
-          detailBody(),
-          detailCover(),
-          Align(
-            alignment: Alignment.topCenter,
-            child: CustomTopBar(),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: CustomBottomBar(),
-          )
-        ],
-      )),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                      onVerticalDragUpdate: (details) {
+                        if (details.delta.dy > 0) {
+                          setState(() {
+                            _showDetailBody = true;
+                          });
+                        }
+                      },
+                      child: AnimatedCrossFade(
+                        firstChild: detailCover(),
+                        secondChild: detailBody(),
+                        crossFadeState: _showDetailBody
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: const Duration(milliseconds: 500),
+                      )),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: CustomTopBar(),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: CustomBottomBar(),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

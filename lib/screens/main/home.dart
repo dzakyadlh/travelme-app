@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
       price: 110.00,
       description:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, exercitationem error. Reprehenderit iste facilis laborum possimus atque, eaque velit temporibus cum iure distinctio nisi. Nisi cupiditate non eligendi est earum nam ut dolor voluptatem perspiciatis assumenda a, officiis saepe at hic accusantium impedit commodi labore itaque! Eveniet enim accusamus perspiciatis!',
-      rating: '4.9',
+      rating: 4.9,
       gallery: [
         'assets/images/jwmarriott.png',
       ],

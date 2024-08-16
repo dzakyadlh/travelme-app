@@ -4,7 +4,7 @@ class HotelModel {
   String location;
   double price;
   String description;
-  String rating;
+  double rating;
   List<String> gallery;
 
   HotelModel({

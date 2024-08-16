@@ -25,7 +25,7 @@ class BigCardSlider extends StatelessWidget {
             return CustomBigCard(
               cardTitle: hotel.name,
               cardLocation: hotel.location,
-              cardRating: hotel.rating,
+              cardRating: hotel.rating.toString(),
               cardImageUrl: hotel.gallery[0],
               onTap: () {
                 Navigator.push(
