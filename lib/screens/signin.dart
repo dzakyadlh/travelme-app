@@ -65,7 +65,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 direction: Axis.horizontal,
                 length: 70,
                 dashLength: 70,
-                dashColor: subtitleTextColor,
+                dashColor: primaryTextColor,
               ),
               const SizedBox(
                 width: 4,
@@ -73,7 +73,7 @@ class _SigninScreenState extends State<SigninScreen> {
               Text(
                 'Or sign in with',
                 style:
-                    subtitleTextStyle.copyWith(fontSize: 14, fontWeight: light),
+                    primaryTextStyle.copyWith(fontSize: 14, fontWeight: light),
               ),
               const SizedBox(
                 width: 4,
@@ -82,7 +82,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 direction: Axis.horizontal,
                 length: 70,
                 dashLength: 70,
-                dashColor: subtitleTextColor,
+                dashColor: primaryTextColor,
               )
             ],
           ),

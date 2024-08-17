@@ -8,7 +8,8 @@ class CustomInputField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     required this.isObscureText,
-    required this.validator,
+    this.validator,
+    this.fontSize = 14,
   });
 
   final String labelText;
@@ -16,6 +17,7 @@ class CustomInputField extends StatelessWidget {
   final TextEditingController controller;
   final bool isObscureText;
   final String? Function(String?)? validator;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,11 @@ class CustomInputField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            labelText,
-            style: primaryTextStyle.copyWith(fontWeight: medium, fontSize: 14),
+            labelText.toString(),
+            style: primaryTextStyle.copyWith(
+              fontWeight: medium,
+              fontSize: fontSize,
+            ),
           ),
           const SizedBox(
             height: 6,
@@ -35,9 +40,15 @@ class CustomInputField extends StatelessWidget {
             controller: controller,
             obscureText: isObscureText,
             cursorColor: primaryTextColor,
+            style: primaryTextStyle.copyWith(
+              fontSize: fontSize,
+            ),
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 hintText: hintText,
+                hintStyle: subtitleTextStyle.copyWith(
+                  fontSize: fontSize,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(defaultRadius),
                 ),

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/screens/checkout.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
 
 class CustomDatePicker extends StatefulWidget {
-  const CustomDatePicker({super.key});
+  const CustomDatePicker({
+    super.key,
+    required this.hotel,
+  });
+
+  final HotelModel hotel;
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -225,7 +232,14 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           buttonText: 'Confirm',
           onPressed: endDate != null
               ? () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CheckoutScreen(
+                                hotel: widget.hotel,
+                                bookingStartDate: startDate,
+                                bookingEndDate: endDate!,
+                              )));
                 }
               : null,
         )

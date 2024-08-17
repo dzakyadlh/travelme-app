@@ -13,8 +13,9 @@ Color secondaryTextColor = const Color(0xFFFFFFFF);
 Color subtitleTextColor = const Color(0xFF504F5E);
 Color priceColor = const Color(0xFFED6363);
 Color alertColor = const Color(0xFFED6363);
+Color infoColor = const Color(0xFF50CF01);
 Color backgroundPrimaryColor = const Color(0xFFFFFFFF);
-Color backgroundSecondaryColor = const Color(0xFFFFFFFF);
+Color backgroundSecondaryColor = const Color(0xFFF5F5F5);
 Color backgroundTertiaryColor = const Color(0xFFFCD240);
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(
@@ -39,6 +40,10 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
 
 TextStyle alertTextStyle = GoogleFonts.poppins(
   color: alertColor,
+);
+
+TextStyle InfoTextStyle = GoogleFonts.poppins(
+  color: infoColor,
 );
 
 FontWeight light = FontWeight.w300;

@@ -93,7 +93,9 @@ class _DetailScreenState extends State<DetailScreen> {
                   builder: (BuildContext context) {
                     return SizedBox(
                       height: MediaQuery.sizeOf(context).height * 0.8,
-                      child: const CustomDatePicker(),
+                      child: CustomDatePicker(
+                        hotel: widget.hotel,
+                      ),
                     );
                   },
                 );
