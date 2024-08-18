@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/providers/wishlist_provider.dart';
 import 'package:travelme/theme.dart';
 
 class CustomBigCard extends StatelessWidget {
@@ -19,8 +22,8 @@ class CustomBigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16),
+    return Container(
+      margin: const EdgeInsets.only(right: 16),
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -86,18 +89,17 @@ class CustomBigCard extends StatelessWidget {
                     Icon(
                       Icons.star,
                       color: primaryColor,
-                      size: 12,
+                      size: 14,
                     ),
                     const SizedBox(
                       width: 4,
                     ),
                     Text(
                       cardRating,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: secondaryTextStyle.copyWith(
                         fontSize: 10,
                         shadows: [
-                          Shadow(
+                          const Shadow(
                             color: Colors.black38,
                             offset: Offset(1, 1),
                             blurRadius: 5,
@@ -119,22 +121,21 @@ class CustomBigCard extends StatelessWidget {
 class CustomSmallCard extends StatelessWidget {
   const CustomSmallCard({
     super.key,
-    required this.cardTitle,
-    required this.cardPrice,
-    required this.cardRating,
-    required this.cardImageUrl,
+    required this.hotel,
   });
 
-  final String cardTitle;
-  final String cardPrice;
-  final String cardRating;
-  final String cardImageUrl;
+  final HotelModel hotel;
 
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of(context);
+
+    bool isWishlisted = wishlistProvider.isWishlisted(hotel);
+
     return Container(
-      padding: EdgeInsets.only(top: defaultMargin),
+      margin: EdgeInsets.only(top: defaultMargin),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 60,
@@ -142,97 +143,8 @@ class CustomSmallCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               image: DecorationImage(
-                  image: AssetImage(cardImageUrl), fit: BoxFit.fitWidth),
+                  image: AssetImage(hotel.gallery[0]), fit: BoxFit.cover),
             ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                cardTitle,
-                style: primaryTextStyle.copyWith(
-                  fontWeight: semibold,
-                  fontSize: 14,
-                ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                '\$$cardPrice',
-                style: priceTextStyle.copyWith(
-                  fontWeight: medium,
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: primaryColor,
-                    size: 16,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    cardRating,
-                    style: primaryTextStyle.copyWith(
-                      fontWeight: semibold,
-                      fontSize: 10,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CustomReviewCard extends StatelessWidget {
-  const CustomReviewCard({
-    super.key,
-    required this.cardName,
-    required this.cardRating,
-    required this.cardReview,
-    required this.cardDate,
-    required this.cardImageUrl,
-  });
-
-  final String cardName;
-  final double cardRating;
-  final String cardReview;
-  final String cardDate;
-  final String cardImageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(
-        top: 16,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: subtitleTextColor),
-                image: DecorationImage(
-                  image: AssetImage(cardImageUrl),
-                  fit: BoxFit.cover,
-                )),
           ),
           const SizedBox(
             width: 16,
@@ -241,58 +153,58 @@ class CustomReviewCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        cardName,
-                        style: primaryTextStyle.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      cardDate,
-                      style: subtitleTextStyle.copyWith(
-                        fontSize: 11,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  children: List.generate(
-                    cardRating.round(),
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(right: 4.0),
-                      child: Icon(
-                        Icons.star_rounded,
-                        color: primaryColor,
-                        size: 16,
-                      ),
-                    ),
+                Text(
+                  hotel.name,
+                  style: primaryTextStyle.copyWith(
+                    fontWeight: semibold,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(
                   height: 4,
                 ),
                 Text(
-                  cardReview,
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 11,
+                  '\$${hotel.price}',
+                  style: priceTextStyle.copyWith(
+                    fontWeight: medium,
+                    fontSize: 12,
                   ),
-                  textAlign: TextAlign.justify,
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: primaryColor,
+                      size: 16,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      hotel.rating.toString(),
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: semibold,
+                        fontSize: 10,
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
           ),
+          // IconButton(
+          //   padding: EdgeInsets.zero,
+          //   onPressed: () {
+          //     wishlistProvider.setHotel(hotel);
+          //   },
+          //   icon: Icon(
+          //     isWishlisted ? Icons.favorite : Icons.favorite_border,
+          //     color: isWishlisted ? primaryColor : primaryTextColor,
+          //   ),
+          // )
         ],
       ),
     );

@@ -407,7 +407,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget _checkoutButton() {
     return Container(
       padding: EdgeInsets.all(defaultMargin),
-      child: ExpandedFilledButton(buttonText: 'Checkout', onPressed: () {}),
+      child: ExpandedFilledButton(
+        buttonText: 'Checkout',
+        onPressed: () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/checkout_success',
+            (_) => false,
+          );
+        },
+      ),
     );
   }
 }

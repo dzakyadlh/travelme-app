@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelme/providers/screen_provider.dart';
 import 'package:travelme/screens/main/bookings.dart';
-import 'package:travelme/screens/main/favorites.dart';
+import 'package:travelme/screens/main/wishlist.dart';
 import 'package:travelme/screens/main/home.dart';
 import 'package:travelme/screens/main/profile.dart';
 import 'package:travelme/theme.dart';
@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   final List _screens = [
     const HomeScreen(),
     const BookingScreen(),
-    const FavoriteScreen(),
+    const WishlistScreen(),
     const ProfileScreen(),
   ];
 

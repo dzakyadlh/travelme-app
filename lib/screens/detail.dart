@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/providers/wishlist_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
-import 'package:travelme/widgets/custom_card.dart';
 import 'package:travelme/widgets/custom_date_picker.dart';
 import 'package:travelme/widgets/gallery.dart';
 import 'package:travelme/widgets/hotel_card.dart';
 import 'package:travelme/widgets/location_widget.dart';
+import 'package:travelme/widgets/review_card.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({
@@ -27,6 +29,10 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     Widget CustomTopBar() {
+      WishlistProvider wishlistProvider = Provider.of(context);
+
+      bool isWishlisted = wishlistProvider.isWishlisted(widget.hotel);
+
       return Container(
         padding: EdgeInsets.symmetric(
           horizontal: defaultMargin,
@@ -54,10 +60,16 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                wishlistProvider.setHotel(widget.hotel);
+              },
               icon: Icon(
-                Icons.favorite_border,
-                color: _showDetailBody ? primaryTextColor : secondaryTextColor,
+                isWishlisted ? Icons.favorite : Icons.favorite_border,
+                color: isWishlisted
+                    ? primaryColor
+                    : _showDetailBody
+                        ? primaryTextColor
+                        : secondaryTextColor,
                 size: 24,
               ),
             )

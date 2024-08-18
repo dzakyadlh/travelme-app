@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelme/providers/screen_provider.dart';
+import 'package:travelme/providers/wishlist_provider.dart';
+import 'package:travelme/screens/checkout_success.dart';
 import 'package:travelme/screens/landing.dart';
 import 'package:travelme/screens/main.dart';
 import 'package:travelme/screens/signin.dart';
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ScreenProvider())
+        ChangeNotifierProvider(create: (context) => ScreenProvider()),
+        ChangeNotifierProvider(create: (context) => WishlistProvider()),
       ],
       child: MaterialApp(
         title: 'Travelme',
@@ -30,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/signin': (context) => const SigninScreen(),
           '/signup': (context) => const SignupScreen(),
           '/main': (context) => const MainScreen(),
+          '/checkout_success': (context) => const CheckoutSuccessScreen(),
         },
       ),
     );

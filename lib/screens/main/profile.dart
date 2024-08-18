@@ -5,10 +5,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget header() {
+      return AppBar(
+        title: const Text('Profile'),
+      );
+    }
+
     return const Column(
-      children: [
-        Text('profile'),
-      ],
+      children: [],
     );
   }
 }
