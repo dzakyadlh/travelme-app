@@ -221,7 +221,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   Widget _bottomBar() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         PrimaryOutlinedButton(
             buttonText: 'Back',

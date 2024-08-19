@@ -57,7 +57,7 @@ class PrimaryFilledButton extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             padding: const EdgeInsets.symmetric(
               vertical: 12,
-              horizontal: 60,
+              horizontal: 50,
             )),
         child: Text(
           buttonText,
@@ -89,7 +89,7 @@ class PrimaryOutlinedButton extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             padding: const EdgeInsets.symmetric(
               vertical: 12,
-              horizontal: 60,
+              horizontal: 50,
             )),
         child: Text(
           buttonText,

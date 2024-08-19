@@ -102,6 +102,8 @@ class _DetailScreenState extends State<DetailScreen> {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
+                  elevation: 0,
+                  backgroundColor: backgroundPrimaryColor,
                   builder: (BuildContext context) {
                     return SizedBox(
                       height: MediaQuery.sizeOf(context).height * 0.8,

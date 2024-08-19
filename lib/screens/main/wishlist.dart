@@ -26,15 +26,14 @@ class WishlistScreen extends StatelessWidget {
       gallery: ['assets/images/kiyomizu.png'],
     );
 
-    Widget header() {
+    Widget customTopBar() {
       return AppBar(
         backgroundColor: backgroundPrimaryColor,
-        centerTitle: true,
         elevation: 0,
         title: Text(
-          'Favorite Hotels',
+          'Your Wishlists',
           style: primaryTextStyle.copyWith(
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: semibold,
           ),
         ),
@@ -115,7 +114,7 @@ class WishlistScreen extends StatelessWidget {
       color: backgroundPrimaryColor,
       child: Column(
         children: [
-          header(),
+          customTopBar(),
           wishlistProvider.wishlist.isEmpty ? emptyWishlist() : wishlistList(),
         ],
       ),
