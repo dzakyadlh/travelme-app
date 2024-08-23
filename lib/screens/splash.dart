@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelme/services/auth_services.dart';
 import 'package:travelme/theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,9 +13,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      Navigator.pushNamed(context, '/landing');
-    });
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    AuthServices authServices = AuthServices();
+    try {
+      String? token = await authServices.getToken();
+
+      await Future.delayed(const Duration(milliseconds: 3000));
+
+      if (token != null) {
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(context, '/landing', (_) => false);
+      }
+    } catch (e) {
+      // Handle error appropriately, e.g., show a dialog or log the error
+      print("Error checking login status: $e");
+      Navigator.pushNamedAndRemoveUntil(context, '/landing', (_) => false);
+    }
   }
 
   @override

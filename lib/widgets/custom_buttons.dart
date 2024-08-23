@@ -100,3 +100,30 @@ class PrimaryOutlinedButton extends StatelessWidget {
         ));
   }
 }
+
+class LoadingButton extends StatelessWidget {
+  const LoadingButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: FilledButton(
+              onPressed: () {},
+              style: FilledButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  padding: const EdgeInsets.symmetric(vertical: 10)),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: subtitleTextColor,
+              )),
+        ),
+      ],
+    );
+  }
+}

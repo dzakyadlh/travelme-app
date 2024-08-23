@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
 import 'package:travelme/widgets/settings_button.dart';
@@ -8,6 +10,15 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+
+    Future<void> logout() async {
+      if (await authProvider.logout()) {
+        Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(context, '/landing', (_) => false);
+      }
+    }
+
     Widget customTopBar() {
       return AppBar(
         title: Text(
@@ -105,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
 
     Widget logoutConfirmation() {
       return Container(
-        height: MediaQuery.sizeOf(context).height * 0.45,
+        height: MediaQuery.sizeOf(context).height * 0.5,
         width: MediaQuery.sizeOf(context).width,
         padding: EdgeInsets.all(defaultMargin),
         child: Column(
@@ -146,8 +157,16 @@ class ProfileScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                PrimaryOutlinedButton(buttonText: 'Log Out', onPressed: () {}),
-                PrimaryFilledButton(buttonText: 'Cancel', onPressed: () {}),
+                PrimaryOutlinedButton(
+                    buttonText: 'Log Out',
+                    onPressed: () {
+                      logout();
+                    }),
+                PrimaryFilledButton(
+                    buttonText: 'Cancel',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
               ],
             ),
           ],

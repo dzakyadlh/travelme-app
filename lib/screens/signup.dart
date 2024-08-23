@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
+import 'package:provider/provider.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
 import 'package:travelme/widgets/input_fields.dart';
@@ -21,11 +23,30 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+
     signup() async {
       setState(() {
         isLoading = true;
       });
-      Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+      if (await authProvider.register(
+        name: nameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: backgroundSecondaryColor,
+            content: Text(
+              'Registration failed. Please try again.',
+              style: primaryTextStyle.copyWith(
+                fontWeight: medium,
+                fontSize: 14,
+              ),
+              textAlign: TextAlign.center,
+            )));
+      }
       setState(() {
         isLoading = false;
       });
@@ -209,7 +230,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(
                   height: 40,
                 ),
-                signupButton(),
+                isLoading ? const LoadingButton() : signupButton(),
                 const SizedBox(
                   height: 20,
                 ),

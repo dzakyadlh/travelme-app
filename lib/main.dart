@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/providers/screen_provider.dart';
 import 'package:travelme/providers/wishlist_provider.dart';
 import 'package:travelme/screens/checkout_success.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ScreenProvider()),
         ChangeNotifierProvider(create: (context) => WishlistProvider()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
       ],
       child: MaterialApp(
         title: 'Travelme',

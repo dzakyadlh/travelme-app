@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
+import 'package:provider/provider.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
 import 'package:travelme/widgets/input_fields.dart';
@@ -20,21 +22,27 @@ class _SigninScreenState extends State<SigninScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+
     signin() async {
       setState(() {
         isLoading = true;
       });
-      Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+      if (await authProvider.login(
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
+      }
       setState(() {
         isLoading = false;
       });
     }
 
     handleSignin() {
-      // if (_formKey.currentState!.validate()) {
-      //   signin();
-      // }
-      signin();
+      if (_formKey.currentState!.validate()) {
+        signin();
+      }
     }
 
     Widget title() {
@@ -152,7 +160,7 @@ class _SigninScreenState extends State<SigninScreen> {
       );
     }
 
-    Widget input_contents() {
+    Widget inputContents() {
       return Container(
         padding: EdgeInsets.all(defaultMargin),
         alignment: Alignment.center,
@@ -195,7 +203,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 const SizedBox(
                   height: 40,
                 ),
-                signupButton(),
+                isLoading ? const LoadingButton() : signupButton(),
                 const SizedBox(
                   height: 20,
                 ),
@@ -214,7 +222,7 @@ class _SigninScreenState extends State<SigninScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              input_contents(),
+              inputContents(),
             ],
           ),
         )));
