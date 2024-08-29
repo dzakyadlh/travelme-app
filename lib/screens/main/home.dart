@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/models/user_model.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/card_list.dart';
 import 'package:travelme/widgets/card_slider.dart';
@@ -10,6 +13,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+    UserModel user = authProvider.user;
+    var firstName = (user.name.split(' '))[0];
+
     final searchController = TextEditingController(text: '');
 
     final hotel = HotelModel(
@@ -50,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'Hello, Zeta!',
+                  'Hello, $firstName!',
                   style: primaryTextStyle.copyWith(
                       fontWeight: semibold, fontSize: 14),
                 ),

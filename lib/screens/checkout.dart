@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/models/user_model.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/booking_card.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
@@ -22,12 +25,15 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  final contactNameController = TextEditingController(text: '');
-  final phoneNumberController = TextEditingController(text: '');
-  final emailController = TextEditingController(text: '');
-
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of(context);
+    UserModel user = authProvider.user;
+
+    final contactNameController = TextEditingController(text: user.name);
+    final phoneNumberController = TextEditingController(text: '');
+    final emailController = TextEditingController(text: user.email);
+
     PreferredSizeWidget customTopBar() {
       return PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -176,9 +182,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 16,
-                          height: 16,
+                          'assets/icons/gopay.png',
+                          width: 40,
+                          height: 40,
                         ),
                         trailing: Icon(
                           Icons.circle_outlined,
@@ -195,9 +201,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 16,
-                          height: 16,
+                          'assets/icons/linkaja.png',
+                          width: 40,
+                          height: 40,
                         ),
                         trailing: Icon(
                           Icons.circle_outlined,
@@ -214,9 +220,47 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 16,
-                          height: 16,
+                          'assets/icons/dana.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        trailing: Icon(
+                          Icons.circle_outlined,
+                          color: primaryTextColor,
+                          size: 20,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Paypal',
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semibold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        leading: Image.asset(
+                          'assets/icons/paypal.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        trailing: Icon(
+                          Icons.circle_outlined,
+                          color: primaryTextColor,
+                          size: 20,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Google Pay',
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semibold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        leading: Image.asset(
+                          'assets/icons/googlepay.png',
+                          width: 40,
+                          height: 40,
                         ),
                         trailing: Icon(
                           Icons.circle_outlined,
@@ -244,9 +288,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 16,
-                          height: 16,
+                          'assets/icons/mandiri.png',
+                          width: 40,
+                          height: 40,
                         ),
                         trailing: Icon(
                           Icons.circle_outlined,
@@ -263,9 +307,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 16,
-                          height: 16,
+                          'assets/icons/bca.png',
+                          width: 40,
+                          height: 40,
                         ),
                         trailing: Icon(
                           Icons.circle_outlined,
@@ -282,9 +326,66 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                         ),
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 16,
-                          height: 16,
+                          'assets/icons/bni.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        trailing: Icon(
+                          Icons.circle_outlined,
+                          color: primaryTextColor,
+                          size: 20,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'BRI Virtual Account',
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semibold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        leading: Image.asset(
+                          'assets/icons/bri.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        trailing: Icon(
+                          Icons.circle_outlined,
+                          color: primaryTextColor,
+                          size: 20,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Mastercard',
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semibold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        leading: Image.asset(
+                          'assets/icons/mastercard.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        trailing: Icon(
+                          Icons.circle_outlined,
+                          color: primaryTextColor,
+                          size: 20,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'VISA',
+                          style: primaryTextStyle.copyWith(
+                            fontWeight: semibold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        leading: Image.asset(
+                          'assets/icons/visa.png',
+                          width: 40,
+                          height: 40,
                         ),
                         trailing: Icon(
                           Icons.circle_outlined,

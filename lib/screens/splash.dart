@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/services/auth_services.dart';
 import 'package:travelme/theme.dart';
 
@@ -18,12 +20,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkLoginStatus() async {
     AuthServices authServices = AuthServices();
+    AuthProvider authProvider = Provider.of(context, listen: false);
     try {
       String? token = await authServices.getToken();
 
       await Future.delayed(const Duration(milliseconds: 3000));
 
       if (token != null) {
+        await authProvider.getUserDataFromStorage();
         Navigator.pushNamedAndRemoveUntil(context, '/main', (_) => false);
       } else {
         Navigator.pushNamedAndRemoveUntil(context, '/landing', (_) => false);

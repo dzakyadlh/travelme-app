@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travelme/models/user_model.dart';
 import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/custom_buttons.dart';
@@ -11,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of(context);
+    UserModel user = authProvider.user;
 
     Future<void> logout() async {
       if (await authProvider.logout()) {
@@ -58,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Zeta Nyx',
+                      user.name,
                       style: primaryTextStyle.copyWith(
                         fontWeight: semibold,
                         fontSize: 14,

@@ -82,6 +82,17 @@ flutter:
     - assets/icons/cheers.png
     - assets/icons/persevering_face.png
     - assets/icons/worried_face.png
+    - assets/icons/gopay.png
+    - assets/icons/linkaja.png
+    - assets/icons/dana.png
+    - assets/icons/paypal.png
+    - assets/icons/mandiri.png
+    - assets/icons/bca.png
+    - assets/icons/bni.png
+    - assets/icons/bri.png
+    - assets/icons/googlepay.png
+    - assets/icons/visa.png
+    - assets/icons/mastercard.png
     - assets/images/airplane.png
     - assets/images/basilica.png
     - assets/images/bratan.png

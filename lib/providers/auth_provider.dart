@@ -43,6 +43,34 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<bool> getUserDataFromStorage() async {
+    try {
+      UserModel? user = await AuthServices().getUserDataFromStorage();
+
+      // If the user is null, handle the error
+      if (user == null) {
+        throw Exception("Failed to retrieve user data from storage.");
+      }
+
+      _user = user;
+      return true;
+    } catch (e) {
+      debugPrint('Error when fetching user data from storage: $e');
+      return false;
+    }
+  }
+
+  Future<bool> getUserByToken() async {
+    try {
+      UserModel user = await AuthServices().getUserByToken();
+      _user = user;
+      return true;
+    } catch (e) {
+      debugPrint('Error when fetching authenticated user data: $e');
+      return false;
+    }
+  }
+
   Future<bool> logout() async {
     try {
       bool isLoggedOut = await AuthServices().logout();

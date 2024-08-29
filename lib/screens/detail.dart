@@ -363,7 +363,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 Expanded(
                   child: GestureDetector(
                       onVerticalDragUpdate: (details) {
-                        if (details.delta.dy > 0) {
+                        if (details.delta.dy < 0) {
                           setState(() {
                             _showDetailBody = true;
                           });
