@@ -19,7 +19,7 @@ class HotelCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           image: DecorationImage(
-              image: AssetImage(hotel.gallery[0]),
+              image: AssetImage(hotel.gallery[0].url),
               fit: BoxFit.cover,
               colorFilter: const ColorFilter.mode(
                 Colors.black26,

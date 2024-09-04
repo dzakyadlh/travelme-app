@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travelme/models/hotel_model.dart';
 import 'package:travelme/providers/wishlist_provider.dart';
 import 'package:travelme/providers/screen_provider.dart';
 import 'package:travelme/theme.dart';
@@ -14,17 +13,6 @@ class WishlistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WishlistProvider wishlistProvider = Provider.of(context);
     ScreenProvider screenProvider = Provider.of(context);
-
-    final hotel = HotelModel(
-      id: 1,
-      name: 'Four Points by Sheraton',
-      location: 'Surabaya',
-      price: 132.00,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus velit ipsam suscipit, optio consequuntur molestias odio modi corrupti reprehenderit rerum nulla est aperiam iure qui illo quia ullam impedit accusantium libero accusamus animi numquam magni iste fuga. Deserunt praesentium nihil dicta sunt asperiores, quasi qui et quidem omnis. In, saepe?',
-      rating: 4.8,
-      gallery: ['assets/images/kiyomizu.png'],
-    );
 
     Widget customTopBar() {
       return AppBar(

@@ -7,10 +7,10 @@ import 'package:travelme/widgets/custom_card.dart';
 class BigCardSlider extends StatelessWidget {
   const BigCardSlider({
     super.key,
-    required this.hotel,
+    required this.hotels,
   });
 
-  final HotelModel hotel;
+  final List<HotelModel> hotels;
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +19,16 @@ class BigCardSlider extends StatelessWidget {
       height: 240,
       child: ListView.builder(
           shrinkWrap: true,
-          itemCount: 6,
+          itemCount: hotels.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, index) {
             return CustomBigCard(
-              cardTitle: hotel.name,
-              cardLocation: hotel.location,
-              cardRating: hotel.rating.toString(),
-              cardImageUrl: hotel.gallery[0],
+              hotel: hotels[index],
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailScreen(hotel: hotel),
+                    builder: (context) => DetailScreen(hotel: hotels[index]),
                   ),
                 );
               },

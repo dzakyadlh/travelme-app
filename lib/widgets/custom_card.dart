@@ -7,17 +7,11 @@ import 'package:travelme/theme.dart';
 class CustomBigCard extends StatelessWidget {
   const CustomBigCard({
     super.key,
-    required this.cardTitle,
-    required this.cardLocation,
-    required this.cardRating,
-    required this.cardImageUrl,
+    required this.hotel,
     required this.onTap,
   });
 
-  final String cardTitle;
-  final String cardLocation;
-  final String cardRating;
-  final String cardImageUrl;
+  final HotelModel hotel;
   final void Function()? onTap;
 
   @override
@@ -31,7 +25,9 @@ class CustomBigCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(cardImageUrl), fit: BoxFit.cover),
+                image: AssetImage(hotel.gallery[0].url),
+                fit: BoxFit.cover,
+              ),
               borderRadius: BorderRadius.circular(25)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -40,7 +36,7 @@ class CustomBigCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  cardTitle,
+                  hotel.name,
                   style: secondaryTextStyle.copyWith(
                     fontWeight: semibold,
                     fontSize: 16,
@@ -67,7 +63,7 @@ class CustomBigCard extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      cardLocation,
+                      hotel.location,
                       style: secondaryTextStyle.copyWith(
                         fontWeight: medium,
                         fontSize: 10,
@@ -95,7 +91,7 @@ class CustomBigCard extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      cardRating,
+                      hotel.rating.toString(),
                       style: secondaryTextStyle.copyWith(
                         fontSize: 10,
                         shadows: [
@@ -143,7 +139,9 @@ class CustomSmallCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               image: DecorationImage(
-                  image: AssetImage(hotel.gallery[0]), fit: BoxFit.cover),
+                image: AssetImage(hotel.gallery[0].url),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(
@@ -158,16 +156,6 @@ class CustomSmallCard extends StatelessWidget {
                   style: primaryTextStyle.copyWith(
                     fontWeight: semibold,
                     fontSize: 14,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  '\$${hotel.price}',
-                  style: priceTextStyle.copyWith(
-                    fontWeight: medium,
-                    fontSize: 12,
                   ),
                 ),
                 const SizedBox(

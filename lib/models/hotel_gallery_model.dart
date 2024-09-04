@@ -1,5 +1,5 @@
 class HotelGalleryModel {
-  List<String> url;
+  String url;
 
   HotelGalleryModel({
     required this.url,

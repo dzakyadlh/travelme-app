@@ -47,8 +47,8 @@ class ProfileScreen extends StatelessWidget {
                   height: 60,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/yunli.png'),
+                    image: DecorationImage(
+                      image: NetworkImage(user.photoUrl.toString()),
                       fit: BoxFit.cover,
                     ),
                   ),

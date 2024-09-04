@@ -83,20 +83,9 @@ class _DetailScreenState extends State<DetailScreen> {
         padding: EdgeInsets.all(defaultMargin),
         color: _showDetailBody ? backgroundPrimaryColor : Colors.transparent,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '\$${widget.hotel.price} /night',
-              style: (_showDetailBody ? primaryTextStyle : secondaryTextStyle)
-                  .copyWith(
-                fontWeight: semibold,
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(
-              width: defaultMargin,
-            ),
-            PrimaryFilledButton(
+            ExpandedFilledButton(
               buttonText: 'Booking',
               onPressed: () {
                 showModalBottomSheet(
@@ -263,7 +252,7 @@ class _DetailScreenState extends State<DetailScreen> {
             const SizedBox(
               height: 16,
             ),
-            Gallery(imageList: widget.hotel.gallery)
+            Gallery(gallery: widget.hotel.gallery)
           ],
         ),
       );

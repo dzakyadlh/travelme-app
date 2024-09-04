@@ -19,22 +19,8 @@ class HomeScreen extends StatelessWidget {
     var firstName = (user.name.split(' '))[0];
 
     HotelProvider hotelProvider = Provider.of(context);
-    List<HotelModel> hotels = hotelProvider.hotels;
 
     final searchController = TextEditingController(text: '');
-
-    final hotel = HotelModel(
-      id: 1,
-      name: 'JW Marriott Hotel',
-      location: 'Surabaya, Indonesia',
-      price: 110.00,
-      description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, exercitationem error. Reprehenderit iste facilis laborum possimus atque, eaque velit temporibus cum iure distinctio nisi. Nisi cupiditate non eligendi est earum nam ut dolor voluptatem perspiciatis assumenda a, officiis saepe at hic accusantium impedit commodi labore itaque! Eveniet enim accusamus perspiciatis!',
-      rating: 4.9,
-      gallery: [
-        'assets/images/jwmarriott.png',
-      ],
-    );
 
     Widget topBar() {
       return Padding(
@@ -52,10 +38,10 @@ class HomeScreen extends StatelessWidget {
                 Container(
                   height: 40,
                   width: 40,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: AssetImage('assets/images/yunli.png'))),
+                          image: NetworkImage(user.photoUrl.toString()))),
                 ),
                 const SizedBox(
                   width: 10,
@@ -93,7 +79,7 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    Widget popularPlaces() {
+    Widget popularPlaces(hotels) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -123,12 +109,12 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          BigCardSlider(hotel: hotel),
+          BigCardSlider(hotels: hotels),
         ],
       );
     }
 
-    Widget hotelsAround() {
+    Widget hotelsAround(hotels) {
       return Container(
         padding: EdgeInsets.only(
           top: defaultMargin,
@@ -145,21 +131,35 @@ class HomeScreen extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            const CardList(),
+            CardList(hotels: hotels),
           ],
         ),
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          topBar(),
-          header(),
-          popularPlaces(),
-          hotelsAround(),
-        ],
-      ),
+    return FutureBuilder<List<HotelModel>>(
+      future: hotelProvider.getHotels(user.token!),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          List<HotelModel> hotels = snapshot.data!;
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                topBar(),
+                header(),
+                popularPlaces(hotels),
+                hotelsAround(hotels),
+              ],
+            ),
+          );
+        } else {
+          return Center(child: Text('No data available'));
+        }
+      },
     );
   }
 }

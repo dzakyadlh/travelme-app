@@ -428,12 +428,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     fontSize: 12,
                   ),
                 ),
-                Text(
-                  '\$${widget.hotel.price.toString()}',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 12,
-                  ),
-                ),
+                // Text(
+                //   '\$${widget.hotel.price.toString()}',
+                //   style: primaryTextStyle.copyWith(
+                //     fontSize: 12,
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(
@@ -448,12 +448,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     fontSize: 12,
                   ),
                 ),
-                Text(
-                  '\$${(widget.hotel.price * 0.1).toString()}',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 12,
-                  ),
-                ),
+                // Text(
+                //   '\$${(widget.hotel.price * 0.1).toString()}',
+                //   style: subtitleTextStyle.copyWith(
+                //     fontSize: 12,
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(
@@ -473,13 +473,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     fontSize: 12,
                   ),
                 ),
-                Text(
-                  '\$${(widget.hotel.price * 0.1 + widget.hotel.price).toString()}',
-                  style: priceTextStyle.copyWith(
-                    fontWeight: semibold,
-                    fontSize: 12,
-                  ),
-                ),
+                // Text(
+                //   '\$${(widget.hotel.price * 0.1 + widget.hotel.price).toString()}',
+                //   style: priceTextStyle.copyWith(
+                //     fontWeight: semibold,
+                //     fontSize: 12,
+                //   ),
+                // ),
               ],
             ),
           ],
