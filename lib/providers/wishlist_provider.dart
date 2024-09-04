@@ -5,6 +5,8 @@ class WishlistProvider with ChangeNotifier {
   List<HotelModel> _wishlist = [];
   List<HotelModel> get wishlist => _wishlist;
 
+  String baseUrl = 'http://10.0.2.2:8000/api';
+
   set wishlist(List<HotelModel> wishlist) {
     _wishlist = wishlist;
     notifyListeners();

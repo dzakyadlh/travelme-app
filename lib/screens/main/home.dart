@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:travelme/models/hotel_model.dart';
 import 'package:travelme/models/user_model.dart';
 import 'package:travelme/providers/auth_provider.dart';
+import 'package:travelme/providers/hotel_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/card_list.dart';
 import 'package:travelme/widgets/card_slider.dart';
@@ -16,6 +17,9 @@ class HomeScreen extends StatelessWidget {
     AuthProvider authProvider = Provider.of(context);
     UserModel user = authProvider.user;
     var firstName = (user.name.split(' '))[0];
+
+    HotelProvider hotelProvider = Provider.of(context);
+    List<HotelModel> hotels = hotelProvider.hotels;
 
     final searchController = TextEditingController(text: '');
 
