@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travelme/models/hotel_model.dart';
+import 'package:travelme/services/hotel_services.dart';
 
 class HotelProvider with ChangeNotifier {
   List<HotelModel> _hotels = [];
@@ -11,12 +12,12 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> getHotels()async{
-  //   try {
-  //     List<HotelModel> hotels = await HotelService().getHotels();
-  //     _hotels = hotels;
-  //   } catch (e) {
-  //     debugPrint('Fetching hotels data error: $e');
-  //   }
-  // }
+  Future<void> getHotels(String token) async {
+    try {
+      List<HotelModel> hotels = await HotelServices().getHotels(token);
+      _hotels = hotels;
+    } catch (e) {
+      debugPrint('Fetching hotels data error: $e');
+    }
+  }
 }

@@ -28,7 +28,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget CustomTopBar() {
+    Widget customTopBar() {
       WishlistProvider wishlistProvider = Provider.of(context);
 
       bool isWishlisted = wishlistProvider.isWishlisted(widget.hotel);
@@ -78,7 +78,7 @@ class _DetailScreenState extends State<DetailScreen> {
       );
     }
 
-    Widget CustomBottomBar() {
+    Widget customBottomBar() {
       return Container(
         padding: EdgeInsets.all(defaultMargin),
         color: _showDetailBody ? backgroundPrimaryColor : Colors.transparent,
@@ -382,11 +382,11 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             Align(
               alignment: Alignment.topCenter,
-              child: CustomTopBar(),
+              child: customTopBar(),
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: CustomBottomBar(),
+              child: customBottomBar(),
             )
           ],
         ),
