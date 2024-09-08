@@ -12,10 +12,10 @@ class ReviewModel {
   });
 
   ReviewModel.fromJson(Map<String, dynamic> json)
-      : comment = json['comment'] ?? '',
-        rating = json['rating'] ?? 0.0,
+      : comment = json['comment'],
+        rating = (json['rating'] as num).toDouble(),
         photoUrl = json['photoUrl'] ?? '',
-        createdAt = json['created_at'];
+        createdAt = DateTime.parse(json['created_at']);
 
   Map<String, dynamic> toJson() {
     return {

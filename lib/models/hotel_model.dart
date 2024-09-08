@@ -27,7 +27,7 @@ class HotelModel {
         name = json['name'],
         location = json['location'],
         description = json['description'],
-        rating = json['rating'],
+        rating = (json['rating'] as num).toDouble(),
         gallery = (json['gallery'] as List)
             .map((item) => HotelGalleryModel.fromJson(item))
             .toList(),

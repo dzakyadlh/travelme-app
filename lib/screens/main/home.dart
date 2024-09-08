@@ -1,16 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:travelme/models/hotel_model.dart';
 import 'package:travelme/models/user_model.dart';
 import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/providers/hotel_provider.dart';
+import 'package:travelme/providers/location_provider.dart';
 import 'package:travelme/theme.dart';
 import 'package:travelme/widgets/card_list.dart';
 import 'package:travelme/widgets/card_slider.dart';
 import 'package:travelme/widgets/input_fields.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _getUserLocationAndHotels();
+  }
+
+  Future<void> _getUserLocationAndHotels() async {
+    LocationProvider locationProvider = Provider.of(context);
+    HotelProvider hotelProvider = Provider.of(context);
+
+    bool isPermissionGranted =
+        await locationProvider.requestLocationPermission();
+
+    if (isPermissionGranted) {
+      await locationProvider.getUserPosition();
+      Position position = locationProvider.position;
+
+      DateTime checkIn = DateTime.now();
+      DateTime checkOut = checkIn.add(const Duration(days: 7));
+
+      await hotelProvider.getHotelsByCoordinates(
+          position.latitude, position.longitude, checkIn, checkOut);
+    } else {
+      debugPrint('Location permission denied');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +53,7 @@ class HomeScreen extends StatelessWidget {
     var firstName = (user.name.split(' '))[0];
 
     HotelProvider hotelProvider = Provider.of(context);
+    List<HotelModel> hotels = hotelProvider.hotels;
 
     final searchController = TextEditingController(text: '');
 
@@ -137,16 +172,11 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    return FutureBuilder<List<HotelModel>>(
-      future: hotelProvider.getHotels(user.token!),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (snapshot.hasData) {
-          List<HotelModel> hotels = snapshot.data!;
-          return SingleChildScrollView(
+    return hotels.isEmpty
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : SingleChildScrollView(
             child: Column(
               children: [
                 topBar(),
@@ -156,10 +186,5 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           );
-        } else {
-          return Center(child: Text('No data available'));
-        }
-      },
-    );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelme/providers/auth_provider.dart';
 import 'package:travelme/providers/hotel_provider.dart';
+import 'package:travelme/providers/location_provider.dart';
 import 'package:travelme/providers/screen_provider.dart';
 import 'package:travelme/providers/wishlist_provider.dart';
 import 'package:travelme/screens/checkout_success.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => WishlistProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => HotelProvider()),
+        ChangeNotifierProvider(create: (context) => LocationProvider()),
       ],
       child: MaterialApp(
         title: 'Travelme',

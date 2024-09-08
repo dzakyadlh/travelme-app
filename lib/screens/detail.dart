@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:travelme/models/hotel_model.dart';
 import 'package:travelme/providers/wishlist_provider.dart';

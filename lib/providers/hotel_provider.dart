@@ -25,26 +25,35 @@ class HotelProvider with ChangeNotifier {
 
   AuthServices authServices = AuthServices();
 
-  Future<List<HotelModel>> getHotels(String token) async {
+  Future<void> getHotels(String token) async {
     try {
       List<HotelModel> hotels = await HotelServices().getHotels(token);
+      print(hotels);
       _hotels = hotels;
-      return hotels;
     } catch (e) {
       debugPrint('Fetching hotels data error: $e');
-      return [];
     }
   }
 
-  Future<List<HotelRoomModel>> getRooms(String token, int hotelId) async {
+  Future<void> getRooms(String token, int hotelId) async {
     try {
       List<HotelRoomModel> rooms =
           await HotelServices().getRooms(token, hotelId);
       _rooms = rooms;
-      return rooms;
     } catch (e) {
       debugPrint('Fetching rooms data error: $e');
-      return [];
+    }
+  }
+
+  Future<void> getHotelsByCoordinates(double latitude, double longitude,
+      DateTime checkIn, DateTime checkOut) async {
+    try {
+      List<HotelModel> hotels = await HotelServices()
+          .getHotelsByCoordinates(latitude, longitude, checkIn, checkOut);
+      print(hotels);
+      _hotels = hotels;
+    } catch (e) {
+      debugPrint('Fetching hotels data error: $e');
     }
   }
 }
